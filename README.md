@@ -13,6 +13,10 @@ This project is a simple take away restaurant system implemented in C++. The sys
 2. Place Orders
 3. Search Function
 
+## Compilation Instructions
+
+## Usage Instructions
+
 ## Authors
 
 - Bhavna Chummun
