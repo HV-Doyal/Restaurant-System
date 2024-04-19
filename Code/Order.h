@@ -1,7 +1,6 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include <unordered_map>
 #include <string>
 
 class Order {
@@ -11,7 +10,6 @@ public:
     double getTotalPrice() const;
 
 private:
-    std::unordered_map<std::string, double> items;
 };
 
 #endif
