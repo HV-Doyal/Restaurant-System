@@ -32,6 +32,7 @@ public:
     Menu(int size = 101);
     void displayMenuItems() const;
     void searchMenuItem();
+    std::string getPrice(const std::string& keyword);
     static std::string toLowercase(const std::string& upperString);
     void showMenu();
     void addMenuItems();

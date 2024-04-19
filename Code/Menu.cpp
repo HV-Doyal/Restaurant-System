@@ -93,6 +93,24 @@ void Menu::searchMenuItem() {
         }
 }
 
+std::string Menu::getPrice(const std::string& keyword) {
+    // Turn user input to lowercase for more effective comparison.
+    std::string lowercaseKeyword = toLowercase(keyword);
+    for (int i = 0; i < tableSize; ++i) {
+        for (const auto& item : table[i]) {
+            /* Turn menu item to lowercase for more effective comparison 
+                against user input.*/
+            if (toLowercase(item.name).find(lowercaseKeyword) != std::string::npos) 
+                {
+                return item.price; // Return the price if found
+            }
+        }
+    }
+    std::cout << "Item not found in the menu." << std::endl;
+    return 0; // Return a default value if not found
+}
+
+
 std::string Menu::toLowercase(const std::string& upperString) {
             std::string lowerString = upperString;
         std::transform(lowerString.begin(), lowerString.end(), 

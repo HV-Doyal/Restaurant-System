@@ -3,13 +3,16 @@
 #include <cstdlib>
 #include <thread> 
 #include <chrono>
+#include <iomanip>
 #include "menu.h"
 
 void takeOrder(Menu& menu)
 {
     std::vector<std::string> order;
-    std::string input;
+    std::string input, item;
     int choice;
+    double price, total;
+    total = 0.00;
 
     do
     {
@@ -18,7 +21,8 @@ void takeOrder(Menu& menu)
         std::cout << "2. Remove Menu Item from order" << std::endl;
         std::cout << "3. View Order" << std::endl;
         std::cout << "4. View Menu" << std::endl;
-        std::cout << "5. Exit" << std::endl;
+        std::cout << "5. Calculate bill and end order" << std::endl;
+        std::cout << "6. Exit" << std::endl;
         std::cout << "Choice: ";
         std::cin >> choice;
 
@@ -66,6 +70,20 @@ void takeOrder(Menu& menu)
         }
         else if (choice == 5)
         {
+            for (const std::string& item : order) {
+            price = std::stod(menu.getPrice(item));
+            total = total + price;
+        }
+        std::cout << std::fixed << std::setprecision(2);
+        std::cout << "Total Price is " << total << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::cout << "Exiting..." << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::system("clear");
+        exit(0);
+        }
+        else if (choice == 6)
+        {
             std::cout << "Exiting" << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(1));
             std::system("clear");
@@ -75,7 +93,7 @@ void takeOrder(Menu& menu)
             std::cout << "Invalid choice. Please try again." << std::endl;
         }
         
-    } while (choice != 5);
+    } while (choice != 6);
     
 }
 
