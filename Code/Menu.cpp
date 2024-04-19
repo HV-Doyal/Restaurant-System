@@ -5,7 +5,9 @@ int Menu::hashFunction(const std::string& key) const {
     return hashFunc(key) % tableSize;
 }
 
-void Menu::insertMenuItem(const std::string& name, const std::string& ingredients, const std::string& price) {
+void Menu::insertMenuItem(const std::string& name, 
+                          const std::string& ingredients, 
+                          const std::string& price) {
     int index = hashFunction(name);
     for (auto& item : table[index]) {
         if (item.name == name) {
@@ -19,23 +21,22 @@ void Menu::insertMenuItem(const std::string& name, const std::string& ingredient
 
 void Menu::loadItemsFromCSV(const std::string& filename) {
     std::ifstream file(filename);
-        if (!file.is_open()) {
-            std::cerr << "Error opening file: " << filename << std::endl;
-            return;
-        }
+    if (!file.is_open()) {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        showMenu();
+    }
 
-        std::string line, name, ingredients, price;
-        //getline(file, line);  // Read and discard the header line of the CSV file.
-
-        while (getline(file, line)) {
-            std::stringstream ss(line);
-            if (getline(ss, name, ',') && getline(ss, ingredients, ',') && getline(ss, price)) {
-                insertMenuItem(name, ingredients, price);
-            } else {
-                std::cerr << "Failed to parse line: " << line << std::endl;
-            }
+    std::string line, name, ingredients, price;
+    while (getline(file, line)) {
+        std::stringstream ss(line);
+        if (getline(ss, name, ',') && getline(ss, ingredients, ',') 
+            && getline(ss, price)) {
+            insertMenuItem(name, ingredients, price);
+        } else {
+            std::cerr << "Failed to parse line: " << line << std::endl;
         }
-        file.close();
+    }
+    file.close();
 }
 
 Menu::Menu(int size) : tableSize(size), table(size) {}
@@ -53,10 +54,6 @@ void Menu::displayMenuItems() const {
 
 void Menu::searchMenuItem() {
     std::string filename;
-        // std::cout << "Enter the filename you want to search in: ";
-        // std::cin >> filename;
-
-        // loadItemsFromCSV(filename);
 
         std::string keyword;
         std::cout << "Enter the item name or ingredients you want to search for: ";
@@ -91,7 +88,6 @@ std::string Menu::toLowercase(const std::string& upperString) {
 }
 
 void Menu::showMenu() {
-    int choice;
         std::string filename;
 
         std::cout << "Enter the file name you want to open: ";

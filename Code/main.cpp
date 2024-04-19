@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include "menu.h"
 
 void takeOrder()
@@ -69,7 +70,8 @@ int main()
     std::cout << "Select an action." << std::endl;
     std::cout << "1.Take Order" << std::endl;
     std::cout << "2.Modify Menu" << std::endl;
-    std::cout << "Choice(1 or 2): ";
+    std::cout << "3.Exit" << std::endl;
+    std::cout << "Choice(1,2 or 3): ";
     std::cin >> choice;
 
     if (choice == 1)
@@ -79,6 +81,12 @@ int main()
     else if (choice == 2)
     {
         editMenu(menu);
+        main();
+    }
+    else if (choice == 3)
+    {
+        std::cout << "Exiting" << std::endl;
+        exit(0);
     }
 
     //menu.searchMenuItem();
