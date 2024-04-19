@@ -39,14 +39,16 @@ void Menu::loadItemsFromCSV(const std::string& filename) {
     file.close();
 }
 
-Menu::Menu(int size) : tableSize(size), table(size) {}
+Menu::Menu(int size) : table(size), tableSize(size) {}
 
 void Menu::displayMenuItems() const {
     for (int i = 0; i < tableSize; ++i) {
             if (!table[i].empty()) {
                 for (const auto& item : table[i]) {
-                    std::cout << "\nItem Key: " << i << "\nItem Name: " << item.name
-                              << "\nIngredients: " << item.ingredients << "\nPrice: " << item.price << std::endl;
+                    std::cout << "\nItem Key: " << i << "\nItem Name: " 
+                              << item.name
+                              << "\nIngredients: " << item.ingredients 
+                              << "\nPrice: " << item.price << std::endl;
                 }
             }
         }
@@ -56,7 +58,8 @@ void Menu::searchMenuItem() {
     std::string filename;
 
         std::string keyword;
-        std::cout << "Enter the item name or ingredients you want to search for: ";
+        std::cout << "Enter the item name or ingredients you want to 
+                      search for: ";
         std::cin.ignore();  // Ignore the newline character left in the stream
         std::getline(std::cin, keyword);
 
@@ -65,11 +68,17 @@ void Menu::searchMenuItem() {
         bool found = false;
         for (int i = 0; i < tableSize; ++i) {
             for (const auto& item : table[i]) {
-                // Turn menu item to lowercase for more effective comparison against user input.
+                /* Turn menu item to lowercase for more effective comparison 
+                    against user input.*/
                 if (toLowercase(item.name).find(keyword) != std::string::npos || 
-                    toLowercase(item.ingredients).find(keyword) != std::string::npos) {
-                    std::cout << "\nItem Found\nItem Key: " << i << "\nItem Name: " << item.name
-                              << "\nIngredients: " << item.ingredients << "\nPrice: " << item.price << std::endl;
+                    toLowercase(item.ingredients).find(keyword) != 
+                                std::string::npos) 
+                    {
+                    std::cout << "\nItem Found\nItem Key: " << i 
+                                << "\nItem Name: " 
+                                << item.name
+                                << "\nIngredients: " << item.ingredients 
+                                << "\nPrice: " << item.price << std::endl;
                     found = true;
                 }
             }
@@ -82,8 +91,10 @@ void Menu::searchMenuItem() {
 
 std::string Menu::toLowercase(const std::string& upperString) {
             std::string lowerString = upperString;
-        std::transform(lowerString.begin(), lowerString.end(), lowerString.begin(),
-                       [](unsigned char upperCharacter) { return std::tolower(upperCharacter); });
+        std::transform(lowerString.begin(), lowerString.end(), 
+                       lowerString.begin(),
+                       [](unsigned char upperCharacter) 
+                       { return std::tolower(upperCharacter); });
         return lowerString;
 }
 
@@ -119,7 +130,8 @@ void Menu::addMenuItems() {
         std::ofstream file(filename, std::ios::app);
         for (int i = 0; i < tableSize; ++i) {
             for (const auto& item : table[i]) {
-                file << item.name << "," << item.ingredients << "," << item.price << "\n";
+                file << item.name << "," << item.ingredients << "," 
+                     << item.price << "\n";
             }
         }
         file.close();
@@ -141,7 +153,8 @@ void Menu::removeMenuItems() {
     std::cin >> key;
 
     if (key < 0 || key >= tableSize) {
-        std::cout << "Invalid key. Key must be between 0 and " << (tableSize - 1) << "." << std::endl;
+        std::cout << "Invalid key. Key must be between 0 and " 
+                  << (tableSize - 1) << "." << std::endl;
         return;
     }
 
@@ -156,15 +169,19 @@ void Menu::removeMenuItems() {
         table[key].clear();
         std::cout << "Item removed successfully." << std::endl;
     } else {
-        // If more than one item has the same key, ask for item name for efficient removal.
+        /* If more than one item has the same key, ask for item name for 
+           efficient removal.*/
         std::string nameToRemove;
-        std::cout << "Multiple items found at this key. Enter the name of the item to remove: ";
+        std::cout << "Multiple items found at this key. Enter the name of the 
+                      item to remove: ";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, nameToRemove);
 
         bool found = false;
-        for (auto iter = table[key].begin(); iter != table[key].end(); ++iter) {
-            if (iter->name == nameToRemove) {
+        for (auto iter = table[key].begin(); iter != table[key].end(); ++iter) 
+        {
+            if (iter->name == nameToRemove) 
+            {
                 table[key].erase(iter);
                 found = true;
                 break;
@@ -183,7 +200,8 @@ void Menu::removeMenuItems() {
     std::ofstream file(filename, std::ios::trunc); 
     for (const auto& list : table) {
         for (const auto& item : list) {
-            file << item.name << "," << item.ingredients << "," << item.price << "\n";
+            file << item.name << "," << item.ingredients << "," << item.price 
+                 << "\n";
         }
     }
     file.close();

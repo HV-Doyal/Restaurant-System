@@ -63,34 +63,35 @@ void inputMenuFromFile(Menu& menu)
 int main() 
 {
     Menu menu;
-
-    inputMenuFromFile(menu);
-
     int choice;
-    std::cout << "Select an action." << std::endl;
-    std::cout << "1.Take Order" << std::endl;
-    std::cout << "2.Modify Menu" << std::endl;
-    std::cout << "3.Exit" << std::endl;
-    std::cout << "Choice(1,2 or 3): ";
-    std::cin >> choice;
 
-    if (choice == 1)
-    {
-        takeOrder();
-    }
-    else if (choice == 2)
-    {
-        editMenu(menu);
-        main();
-    }
-    else if (choice == 3)
-    {
-        std::cout << "Exiting" << std::endl;
-        exit(0);
-    }
+    do {
+        inputMenuFromFile(menu);
 
-    //menu.searchMenuItem();
-    //fileMenu(menu);
-    
+        std::cout << "Select an action." << std::endl;
+        std::cout << "1. Take Order" << std::endl;
+        std::cout << "2. Modify Menu" << std::endl;
+        std::cout << "3. Exit" << std::endl;
+        std::cout << "Choice (1, 2, or 3): ";
+        std::cin >> choice;
+
+        if (choice == 1) 
+        {
+            takeOrder();
+        } 
+        else if (choice == 2) 
+        {
+            editMenu(menu);
+        } 
+        else if (choice == 3) 
+        {
+            std::cout << "Exiting" << std::endl;
+        } 
+        else 
+        {
+            std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    } while (choice != 3);
+
     return 0;
 }
