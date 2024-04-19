@@ -7,9 +7,10 @@ void takeOrder()
     std::cout << "Take Order Function" << std::endl;
 }
 
-void editMenu()
+void editMenu(Menu& menu)
 {
     std::cout << "Edit Menu Function" << std::endl;
+    menu.editCSVFile();
 }
 
 void fileMenu(Menu& menu) {
@@ -61,8 +62,27 @@ void inputMenuFromFile(Menu& menu)
 int main() 
 {
     Menu menu;
+
     inputMenuFromFile(menu);
-    menu.searchMenuItem();
+
+    int choice;
+    std::cout << "Select an action." << std::endl;
+    std::cout << "1.Take Order" << std::endl;
+    std::cout << "2.Modify Menu" << std::endl;
+    std::cout << "Choice(1 or 2): ";
+    std::cin >> choice;
+
+    if (choice == 1)
+    {
+        takeOrder();
+    }
+    else if (choice == 2)
+    {
+        editMenu(menu);
+    }
+
+    //menu.searchMenuItem();
     //fileMenu(menu);
+    
     return 0;
 }

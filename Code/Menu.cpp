@@ -25,7 +25,7 @@ void Menu::loadItemsFromCSV(const std::string& filename) {
         }
 
         std::string line, name, ingredients, price;
-        getline(file, line);  // Read and discard the header line of the CSV file.
+        //getline(file, line);  // Read and discard the header line of the CSV file.
 
         while (getline(file, line)) {
             std::stringstream ss(line);
