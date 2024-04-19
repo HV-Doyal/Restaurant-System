@@ -25,6 +25,10 @@ void Menu::loadItemsFromCSV(const std::string& filename) {
         std::cerr << "Error opening file: " << filename << std::endl;
         showMenu();
     }
+    else
+    {
+        std::cout << "File input successful" << std::endl;
+    }
 
     std::string line, name, ingredients, price;
     while (getline(file, line)) {
@@ -58,8 +62,8 @@ void Menu::searchMenuItem() {
     std::string filename;
 
         std::string keyword;
-        std::cout << "Enter the item name or ingredients you want to 
-                      search for: ";
+        std::cout << "Enter the item name or ingredients you want"
+                  << "to search for: ";
         std::cin.ignore();  // Ignore the newline character left in the stream
         std::getline(std::cin, keyword);
 
@@ -172,8 +176,8 @@ void Menu::removeMenuItems() {
         /* If more than one item has the same key, ask for item name for 
            efficient removal.*/
         std::string nameToRemove;
-        std::cout << "Multiple items found at this key. Enter the name of the 
-                      item to remove: ";
+        std::cout << "Multiple items found at this key. "
+                  << "Enter the name of the item to remove: ";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::getline(std::cin, nameToRemove);
 
