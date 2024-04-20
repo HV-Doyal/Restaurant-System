@@ -143,7 +143,7 @@ void Menu::showMenu() {
 void Menu::addMenuItems() {
     std::string filename;
 
-    std::cout << "Enter the file name you want to edit: ";
+    std::cout << "Enter the file name you want to add items to: ";
     std::cin >> filename;
 
     std::string name, ingredients, price;
@@ -177,7 +177,7 @@ void Menu::removeMenuItems() {
     std::string filename;
 
     // Load current menu items.
-    std::cout << "Enter the file name you want to edit: ";
+    std::cout << "Enter the file name you want to remove items from: ";
     std::cin >> filename;
     loadItemsFromCSV(filename);
 
