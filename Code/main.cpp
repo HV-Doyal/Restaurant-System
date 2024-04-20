@@ -92,7 +92,7 @@ void takeOrder(Menu& menu)
             total = total + price;
         }
         std::cout << std::fixed << std::setprecision(2);
-        std::cout << "Total Price is " << total << std::endl;
+        std::cout << "Total Price is £" << total << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(5));
         std::cout << "\nExiting..." << std::endl;
         std::cout << "Come back soon!" << std::endl;
