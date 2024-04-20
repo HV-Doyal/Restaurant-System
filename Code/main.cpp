@@ -1,3 +1,4 @@
+// Use of standard and OS independant C++ libraries.
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -6,24 +7,26 @@
 #include <iomanip>
 #include "menu.h"
 
+// Function to take orders.
 void takeOrder(Menu& menu)
 {
     std::vector<std::string> order;
     std::string input, item;
     int choice;
+    bool itemFound;
     double price, total;
     total = 0.00;
 
-    do
-    {
-        std::cout << "Select an action." << std::endl;
+    do {
+        // Display options to the user.
+        std::cout << "\n----------Order Menu----------\n" << std::endl;
         std::cout << "1. Add Menu Item to order." << std::endl;
         std::cout << "2. Remove Menu Item from order" << std::endl;
         std::cout << "3. View Order" << std::endl;
         std::cout << "4. View Menu" << std::endl;
         std::cout << "5. Calculate bill and end order" << std::endl;
         std::cout << "6. Exit" << std::endl;
-        std::cout << "Choice: ";
+        std::cout << "\nEnter your choice (1-6): ";
         std::cin >> choice;
 
         if (choice == 1) 
@@ -31,8 +34,23 @@ void takeOrder(Menu& menu)
             std::cin.ignore();
             std::cout << "Enter item to add to order: ";
             std::getline(std::cin, input);
-            order.push_back(input);
-            std::cout << "Item added successfully" << std::endl;
+
+            for (int i = 0; i < menu.tableSize; ++i) {
+                for (const auto& item : menu.table[i]) {
+                    if (menu.toLowercase(item.name) == menu.toLowercase(input)) {
+                        itemFound = true;
+                    } else {
+                        itemFound = false;
+                    }
+                }
+            }
+
+            if (itemFound) {
+                order.push_back(input);
+                std::cout << "\nItem added successfully.\n" << std::endl;
+            } else if (!itemFound) {            
+                std::cout << "\nItem not found.\n" << std::endl;
+            }
         } 
         else if (choice == 2) 
         {
@@ -48,14 +66,14 @@ void takeOrder(Menu& menu)
                           << std::endl;
                 // Removing the string
                 order.erase(it);
-                std::cout << "Item removed successfully" << std::endl;
+                std::cout << "Item removed successfully." << std::endl;
             } else {
                 std::cout << input << " not found." << std::endl;
             }
         } 
         else if (choice == 3)
         {
-            std::cout << "-------------CURRENT ORDER-------------" << std::endl;
+            std::cout << "/n-------------CURRENT ORDER-------------" << std::endl;
             for (size_t i = 0; i < order.size(); ++i) 
             {
                 std::cout << order[i] << std::endl;
@@ -77,15 +95,15 @@ void takeOrder(Menu& menu)
         std::cout << std::fixed << std::setprecision(2);
         std::cout << "Total Price is " << total << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(5));
-        std::cout << "Exiting..." << std::endl;
-        std::this_thread::sleep_for(std::chrono::seconds(5));
+        std::cout << "\nExiting..." << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(2));
         std::system("clear");
         exit(0);
         }
         else if (choice == 6)
         {
-            std::cout << "Exiting" << std::endl;
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+            std::cout << "\nExiting..." << std::endl;
+            std::this_thread::sleep_for(std::chrono::seconds(2));
             std::system("clear");
         } 
         else 
@@ -97,94 +115,83 @@ void takeOrder(Menu& menu)
     
 }
 
+// Function to display take order options to user.
 void takeOrderMenu(Menu& menu)
 {
     int choice;
-    std::cout << "Take Order Function" << std::endl;
 
     do {
-
-        std::cout << "Select an action." << std::endl;
+        std::cout << "\n--------Order Managing Menu--------\n" << std::endl;
         std::cout << "1. View Menu" << std::endl;
         std::cout << "2. Search Menu" << std::endl;
         std::cout << "3. Take Order" << std::endl;
         std::cout << "4. Exit" << std::endl;
-        std::cout << "Choice: ";
+        std::cout << "\nEnter your choice (1-4): ";
         std::cin >> choice;
 
-        if (choice == 1) 
-        {
+        if (choice == 1) {
             std::system("clear");
             menu.displayMenuItems();
             std::this_thread::sleep_for(std::chrono::seconds(5));
-        } 
-        else if (choice == 2) 
-        {
+        } else if (choice == 2) {
             std::system("clear");
             menu.searchMenuItem();
-        } 
-        else if (choice == 3) 
-        {
+        } else if (choice == 3) {
             std::system("clear");
             takeOrder(menu);
-        }
-        else if (choice == 4) 
-        {
-            std::cout << "Exiting" << std::endl;
+        } else if (choice == 4) {
+            std::cout << "\nExiting..." << std::endl;
+            std::cout << "Come back soon!" << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(2));
             std::system("clear");
-        } 
-        else 
-        {
+        } else {
             std::cout << "Invalid choice. Please try again." << std::endl;
         }
 
     } while (choice != 4);
 }
 
+// Function to display modify options to user.
 void fileMenu(Menu& menu) {
     int choice;
-    std::cout << "Menu:\n";
+    std::cout << "\n----------Modification Menu----------\n";
     std::cout << "1. Display Menu Items\n";
     std::cout << "2. Search for a Menu Item\n";
     std::cout << "3. Edit Menu\n";
-    std::cout << "Enter your choice (1, 2 or 3): ";
+    std::cout << "\nEnter your choice (1-3): ";
     std::cin >> choice;
 
-    switch (choice) {
-        case 1:
+    do {
+        if (choice == 1) {
             menu.showMenu();
             menu.displayMenuItems();
-            break;
-        case 2:
+        } else if (choice == 2) {
             menu.searchMenuItem();
-            break;
-        case 3:
+        } else if (choice == 3) {
             menu.editCSVFile();
-            break;
-        default:
-            std::cout << "Invalid choice. Exiting program." << std::endl;
-            break;
-    }
+        } else {
+            std::cout << "Invalid choice. Please try again." << std::endl;
+        }
+    } while (choice != 3);
 }
 
+// Function to ask user for CSV file input.
 void inputMenuFromFile(Menu& menu)
 {
     std::string input;
 
-    std::cout << "Please Input Menu" << std::endl;
-    std::cout << "Enter -1 to stop input" << std::endl;
+    std::cout << "Please Input Menus." << std::endl;
+    std::cout << "Enter -1 to stop input." << std::endl;
 
     do 
     {
-        std::cout << "Enter the file name you want to open: ";
+        std::cout << "\nEnter the file name you want to open: ";
         std::cin >> input;
 
-        if (input != "-1") 
-        { 
-             menu.getloadMenuFromCSV(input);
-             //menu.displayMenuItems();
+        if (input != "-1") { 
+            menu.getloadMenuFromCSV(input);
         }
+
     } while (input != "-1"); 
     std::system("clear");
 }
@@ -194,38 +201,32 @@ int main()
     Menu menu;
     int choice;
 
+    std::cout << "\n------WELCOME TO BITES AND WONDERS-----\n" << std::endl;        
+
     inputMenuFromFile(menu);
 
-    do {
+    // Main menu.
+    std::cout << "\n----------Main Menu----------\n" << std::endl;
+    std::cout << "1. Take Order" << std::endl;
+    std::cout << "2. Modify Menu" << std::endl;
+    std::cout << "3. Exit\n" << std::endl;
+    std::cout << "\nEnter your choice (1-3): ";
+    std::cin >> choice;
 
-        std::cout << "Select an action." << std::endl;
-        std::cout << "1. Take Order" << std::endl;
-        std::cout << "2. Modify Menu" << std::endl;
-        std::cout << "3. Exit" << std::endl;
-        std::cout << "Choice (1, 2, or 3): ";
-        std::cin >> choice;
-
-        if (choice == 1) 
-        {
-            std::system("clear");
-            takeOrderMenu(menu);
-        } 
-        else if (choice == 2) 
-        {
-            std::system("clear");
-            menu.editCSVFile();
-        } 
-        else if (choice == 3) 
-        {
-            std::cout << "Exiting" << std::endl;
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-            std::system("clear");
-        } 
-        else 
-        {
-            std::cout << "Invalid choice. Please try again." << std::endl;
-        }
-    } while (choice != 3);
-
+    if (choice == 1) {
+        std::system("clear");
+        takeOrderMenu(menu);
+    } else if (choice == 2) {
+        std::system("clear");
+        menu.editCSVFile();
+    } else if (choice == 3) {
+        std::cout << "\nExiting..." << std::endl;
+        std::cout << "Come back soon!" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        std::system("clear");
+    } else {
+        std::cout << "Invalid choice. Please try again." << std::endl;
+    }
+ 
     return 0;
 }
