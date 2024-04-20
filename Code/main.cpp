@@ -27,7 +27,6 @@ void takeOrder(Menu& menu)
         std::cout << "5. Calculate bill and end order" << std::endl;
         std::cout << "6. Exit" << std::endl;
         std::cout << "\nEnter your choice (1-6): ";
-        std::cin >> choice;
 
         // Validate user input
         while (!(std::cin >> choice) || choice < 1 || choice > 6) {
@@ -128,7 +127,6 @@ void takeOrderMenu(Menu& menu)
         std::cout << "3. Take Order" << std::endl;
         std::cout << "4. Exit" << std::endl;
         std::cout << "\nEnter your choice (1-4): ";
-        std::cin >> choice;
 
         // Validate user input
         while (!(std::cin >> choice) || choice < 1 || choice > 6) {
@@ -167,7 +165,6 @@ void fileMenu(Menu& menu) {
     std::cout << "2. Search for a Menu Item\n";
     std::cout << "3. Edit Menu\n";
     std::cout << "\nEnter your choice (1-3): ";
-    std::cin >> choice;
 
     // Validate user input
     while (!(std::cin >> choice) || choice < 1 || choice > 6) {
@@ -226,7 +223,6 @@ int main()
     std::cout << "2. Modify Menu" << std::endl;
     std::cout << "3. Exit\n" << std::endl;
     std::cout << "\nEnter your choice (1-3): ";
-    std::cin >> choice;
 
     // Validate user input
     while (!(std::cin >> choice) || choice < 1 || choice > 6) {
