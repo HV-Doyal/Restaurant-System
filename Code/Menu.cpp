@@ -267,6 +267,22 @@ void Menu::editCSVFile() {
     }
 }
 
+bool Menu::isPresent(const std::string& keyword) {
+    // Turn user input to lowercase for more effective comparison.
+    std::string lowercaseKeyword = toLowercase(keyword);
+    for (int i = 0; i < tableSize; ++i) {
+        for (const auto& item : table[i]) {
+            // Turn menu item to lowercase for more effective comparison 
+            // against user input.
+            if (toLowercase(item.name).find(lowercaseKeyword) != std::string::npos) 
+            {
+                return true; // Return true if found.
+            }
+        }
+    }
+    return false; // Return false if not found.
+}
+
 // Function to load menu items from a CSV file.
 void Menu::getloadMenuFromCSV(const std::string& filename) {
     loadItemsFromCSV(filename); 

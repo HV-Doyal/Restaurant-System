@@ -13,7 +13,7 @@ void takeOrder(Menu& menu)
     std::vector<std::string> order;
     std::string input, item;
     int choice;
-    bool itemFound;
+    bool found;
     double price, total;
     total = 0.00;
 
@@ -29,28 +29,28 @@ void takeOrder(Menu& menu)
         std::cout << "\nEnter your choice (1-6): ";
         std::cin >> choice;
 
+        // Validate user input
+        while (!(std::cin >> choice) || choice < 1 || choice > 6) {
+            std::cin.clear();  // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            std::cout << "Invalid choice. Please enter a number between 1 and 6: ";
+        }
+
         if (choice == 1) 
         {
             std::cin.ignore();
-            std::cout << "Enter item to add to order: ";
-            std::getline(std::cin, input);
-
-            for (int i = 0; i < menu.tableSize; ++i) {
-                for (const auto& item : menu.table[i]) {
-                    if (menu.toLowercase(item.name) == menu.toLowercase(input)) {
-                        itemFound = true;
-                    } else {
-                        itemFound = false;
-                    }
+            found = false;
+            while (!found) {
+                std::cout << "Enter item to add to order: ";
+                std::getline(std::cin, input);
+                if (menu.isPresent(input)) {
+                    order.push_back(input);
+                    std::cout << "Item added successfully." << std::endl;
+                    found = true;
+                } else {
+                    std::cout << "Item not found." << std::endl;
                 }
-            }
-
-            if (itemFound) {
-                order.push_back(input);
-                std::cout << "\nItem added successfully.\n" << std::endl;
-            } else if (!itemFound) {            
-                std::cout << "\nItem not found.\n" << std::endl;
-            }
+            }         
         } 
         else if (choice == 2) 
         {
@@ -129,6 +129,13 @@ void takeOrderMenu(Menu& menu)
         std::cout << "\nEnter your choice (1-4): ";
         std::cin >> choice;
 
+        // Validate user input
+        while (!(std::cin >> choice) || choice < 1 || choice > 6) {
+            std::cin.clear();  // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+            std::cout << "Invalid choice. Please enter a number between 1 and 4: ";
+        }
+
         if (choice == 1) {
             std::system("clear");
             menu.displayMenuItems();
@@ -160,6 +167,13 @@ void fileMenu(Menu& menu) {
     std::cout << "3. Edit Menu\n";
     std::cout << "\nEnter your choice (1-3): ";
     std::cin >> choice;
+
+    // Validate user input
+    while (!(std::cin >> choice) || choice < 1 || choice > 6) {
+        std::cin.clear();  // clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+        std::cout << "Invalid choice. Please enter a number between 1 and 3: ";
+    }
 
     do {
         if (choice == 1) {
@@ -212,6 +226,13 @@ int main()
     std::cout << "3. Exit\n" << std::endl;
     std::cout << "\nEnter your choice (1-3): ";
     std::cin >> choice;
+
+    // Validate user input
+    while (!(std::cin >> choice) || choice < 1 || choice > 6) {
+        std::cin.clear();  // clear the error flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+        std::cout << "Invalid choice. Please enter a number between 1 and 3: ";
+    }
 
     if (choice == 1) {
         std::system("clear");

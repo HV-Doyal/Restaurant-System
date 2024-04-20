@@ -41,6 +41,7 @@ public:
     void addMenuItems();
     void removeMenuItems();
     void editCSVFile();
+    bool isPresent(const std::string& keyword);
     void getloadMenuFromCSV(const std::string& filename);
 };
 
