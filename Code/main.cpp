@@ -96,6 +96,7 @@ void takeOrder(Menu& menu)
         std::cout << "Total Price is " << total << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(5));
         std::cout << "\nExiting..." << std::endl;
+        std::cout << "Come back soon!" << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(2));
         std::system("clear");
         exit(0);
