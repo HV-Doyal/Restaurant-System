@@ -73,7 +73,7 @@ void takeOrder(Menu& menu)
         } 
         else if (choice == 3)
         {
-            std::cout << "/n-------------CURRENT ORDER-------------" << std::endl;
+            std::cout << "\n-------------CURRENT ORDER-------------" << std::endl;
             for (size_t i = 0; i < order.size(); ++i) 
             {
                 std::cout << order[i] << std::endl;
