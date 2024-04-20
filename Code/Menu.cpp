@@ -116,7 +116,7 @@ std::string Menu::getPrice(const std::string& keyword) {
         }
     }
     std::cout << "Item not found in the menu." << std::endl;
-    return 0; 
+    return "0"; 
 }
 
 // Function to convert a string to lowercase.
