@@ -1,3 +1,8 @@
+/*  main.cpp
+    Created: 10/4/2024
+    Updated: 20/4/2024
+*/
+
 // Use of standard and OS independant C++ libraries.
 #include <iostream>
 #include <string>
